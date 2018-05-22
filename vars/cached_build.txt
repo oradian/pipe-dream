@@ -1,0 +1,59 @@
+<p>
+	Cache the build by inspecting files or by custom key/value pair.
+</p>
+
+<p>
+	The cache can be ignored by using environment <strong>BUILD_IGNORE_CACHE</strong><br />
+	The repository name to use for cache can be set by environtment <strong>NEXUS_CACHE_REPOSITORY</strong> (default: <strong>build_cache</strong>)<br />
+	The cache storage can be set from environment <strong>CACHE_STORAGE</strong> (default: <strong>nexus</strong>)<br />
+	The hashing implementation can be set from environment <strong>CACHE_HASHER</strong> (default: <strong>git</strong>)<br />
+</p>
+
+<p>
+	<strong>CacheCollection call(CacheCollection cc, def lambda)</strong>
+	<div style="margin-left: 4em">
+		Run a cached build (contained in lambda) from cache key/values defined in CacheColection cc.<br />
+		Returns the same CacheCollection.
+	</div>
+</p>
+
+<p>
+	<strong>CacheCollection call(Collection<String> filepaths, def lambda)</strong>
+	<div style="margin-left: 4em">
+		Cache a build (lambda) from a list of filepaths. Can be both files or directories.<br />
+		Returns a CacheCollection from specified filepaths.
+	</div>
+</p>
+
+<p>
+	<strong>CacheCollection call(String path = null, boolean chdir = false, def lambda)</strong>
+	<div style="margin-left: 4em">
+		Cache a build (lambda) from a single path. If chdir is true, it will chdir to the path before calling lambda. In that case it is expected that path is a directory, otherwise path can be a file as well.<br />
+		Returns a CacheCollection containing a single CacheEntry from specified path.
+	</div>
+</p>
+
+<p>
+	<strong>CacheCollection call(String prefix, String key, def lambda)</strong>
+	<div style="margin-left: 4em">
+		Cache a build (lambda) from a manually provided single key/value pair.<br />
+		A new CacheEntry will be created from a specified prefix and key, and will be used to determine if lambda should be run.<br />
+		Returns CacheCollection containing only that CacheEntry.
+	</div>
+</p>
+
+<p>
+	<strong>String getSha1(String filepath = null)</strong>
+	<div style="margin-left: 4em">
+		Get a <b>combined</b> cache from a single path. Path can be either a file or directory.<br />
+		If filepath is null, a HEAD of a git repository will be used as a base for a hash if using the "git" hashing provider.
+	</div>
+</p>
+
+<p>
+	<strong>String getSha1(Collection<String> filepaths)</strong>
+	<div style="margin-left: 4em">
+		Get a <b>combined</b> cache from a list of paths. Paths can either be files or directories, or both.<br />
+		If any filepath is null, that particular entry will be replaced with a HEAD sha1 of a git repository if using the "git" hashing provider.
+	</div>
+</p>

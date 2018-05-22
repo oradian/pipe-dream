@@ -1,0 +1,19 @@
+
+<strong>def forwardParameter(String parameterName)</strong>
+<div style="margin-left: 4em">
+	A helper method to forward a parameter of a current build to a child build. It's intended use is from another global variable.  An example usage:
+	<pre><code>
+	def getBranchParameter() { return 'gitBranch' }
+
+	def parameters(String defaultBranch = 'master') {
+		return [string(name: branchParameter, defaultValue: defaultBranch)]
+	}
+
+	def getForwardParameters() {
+		return [build_util.forwardParameter(branchParameter)]
+	}
+	</code></pre>
+
+	A pipeline may then use it as so:<br />
+	<code style="margin-left: 4em">build(job: 'Backend-Test', parameters: scm_util.forwardParameters)</code>
+</div>
